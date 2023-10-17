@@ -1,0 +1,25 @@
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Scrollbar on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--v-scrollbar-base) transparent;
+}
+
+/* Scrollbar on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 0;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #d6d6d6;
+  border-radius: 1px;
+  border: 1px solid var(--v-scrollbar-base);
+}
