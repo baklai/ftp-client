@@ -18,9 +18,12 @@
   <Divider />
 
   <div class="sidebar-menu overflow-y-scroll w-full text-base my-4">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic temporibus libero sapiente totam
-    consequatur provident ex qui fuga natus, aperiam sequi nemo adipisci, aliquam sunt, quidem et.
-    Fugit, molestiae molestias.
+    <span class="text-xl">
+      FTP, which stands for File Transfer Protocol, is a standard network protocol used to transfer
+      files from one host to another over a TCP-based network, typically the Internet. It was first
+      developed in the early 1970s and has since become one of the most widely used methods for
+      sharing files and managing data on remote servers.
+    </span>
   </div>
 
   <Button
