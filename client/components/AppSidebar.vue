@@ -30,7 +30,7 @@
     outlined
     size="large"
     class="w-full"
-    label="Logout"
+    label="Disconnect"
     icon="pi pi-sign-out"
     @click="$app.signout()"
   />
