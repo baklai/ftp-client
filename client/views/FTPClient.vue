@@ -325,6 +325,21 @@ const copyLink = async filename => {
   }
 };
 
+const getLinkToFile = filename => {
+  if (!filename) return '#';
+  try {
+    const link =
+      `${axios.defaults.baseURL}/ftp/download?` +
+      `path=${breadcrumb.value.map(item => item.label).join('/')}` +
+      '&' +
+      `filename=${filename}`;
+    return link.replaceAll(' ', '+');
+  } catch (err) {
+    console.error(err);
+    return '#';
+  }
+};
+
 const filterFileIcon = filename => {
   if (
     filename.includes('.exe') ||
@@ -669,17 +684,16 @@ onMounted(async () => {
           >
             <template #body="{ data }">
               <div class="flex justify-content-end flex-wrap">
-                <Button
-                  text
-                  plain
-                  rounded
-                  icon="pi pi-download"
-                  iconClass="text-xl"
-                  class="p-button-lg mx-2 text-green-500 h-2rem w-2rem"
+                <a
+                  download
+                  target="_blank"
+                  :href="getLinkToFile(data.name)"
+                  class="p-button p-component p-button-icon-only p-button-rounded p-button-text p-button-plain p-button-lg mx-2 text-green-500 h-2rem w-2rem"
                   v-tooltip.bottom="'Download file'"
-                  @click="download(data.name)"
                   v-if="data.type === 1"
-                />
+                >
+                  <i class="pi pi-download text-xl"></i>
+                </a>
 
                 <Button
                   text
