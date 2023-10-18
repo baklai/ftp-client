@@ -14,7 +14,7 @@ export const useClient = defineStore('client', () => {
 
   async function download(params) {
     try {
-      return await $axios.get('/download', { params, responseType: 'blob' });
+      return await $axios.get('/download', { params, responseType: 'blob', timeout: 0 });
     } catch (err) {
       throw new Error(err.message);
     }
@@ -25,7 +25,8 @@ export const useClient = defineStore('client', () => {
       return await $axios.post('/upload/file', payload, {
         headers: {
           'Content-Type': `multipart/form-data;`
-        }
+        },
+        timeout: 0
       });
     } catch (err) {
       throw new Error(err.message);
