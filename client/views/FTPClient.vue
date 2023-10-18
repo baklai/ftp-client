@@ -569,11 +569,10 @@ onMounted(async () => {
               </template>
 
               <template #empty>
-                <p>{{ 'Drag and drop files to here to upload' }}</p>
+                <ProgressBar mode="indeterminate" class="h-0.5rem w-full" v-show="uploading" />
+                <p>Drag and drop files to here to upload</p>
               </template>
             </FileUpload>
-
-            <ProgressBar mode="indeterminate" class="h-0.5rem w-full mt-2" v-show="uploading" />
           </template>
 
           <template #loading>
