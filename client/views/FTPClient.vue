@@ -51,7 +51,8 @@ const ctxMenuOptions = computed(() => {
       {
         label: 'Download file',
         icon: 'pi pi-download',
-        command: () => download(selectedRowData.value.name)
+        url: getLinkToFile(selectedRowData.value.name),
+        target: '_blank'
       },
       {
         label: 'Copy file link',
