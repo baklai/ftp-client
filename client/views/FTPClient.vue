@@ -26,6 +26,7 @@ const ftpFiles = ref([]);
 const files = ref([]);
 const selectedRowData = ref();
 const newValue = ref(null);
+const openUpload = ref(false);
 const loading = ref(false);
 const uploading = ref(false);
 const filters = ref({
@@ -51,7 +52,7 @@ const ctxMenuOptions = computed(() => {
       {
         label: 'Download file',
         icon: 'pi pi-download',
-        url: getLinkToFile(selectedRowData.value.name),
+        url: download(selectedRowData.value.name),
         target: '_blank'
       },
       {
@@ -177,7 +178,7 @@ const rename = async value => {
 const remove = async (name, type) => {
   confirm.require({
     message: 'Do you want to delete this record?',
-    header: 'HD Confirm delete record',
+    header: 'Confirm delete record',
     icon: 'pi pi-info-circle text-yellow-500',
     acceptIcon: 'pi pi-check',
     acceptClass: 'p-button-danger',
@@ -309,7 +310,7 @@ const copyLink = async filename => {
   if (!filename) return;
   try {
     const link =
-      `${axios.defaults.baseURL}/ftp/download?` +
+      `${axios.defaults.baseURL}/download?` +
       `path=${breadcrumb.value.map(item => item.label).join('/')}` +
       '&' +
       `filename=${filename}`;
@@ -330,7 +331,7 @@ const getLinkToFile = filename => {
   if (!filename) return '#';
   try {
     const link =
-      `${axios.defaults.baseURL}/ftp/download?` +
+      `${axios.defaults.baseURL}/download?` +
       `path=${breadcrumb.value.map(item => item.label).join('/')}` +
       '&' +
       `filename=${filename}`;
@@ -448,7 +449,7 @@ onMounted(async () => {
             <div class="flex flex-wrap gap-4 mb-2 align-items-center justify-content-between">
               <div class="flex flex-wrap gap-2 align-items-center">
                 <i class="mr-2 hidden sm:block">
-                  <Avatar class="mr-2" size="xlarge" icon="pi pi-cloud-upload" />
+                  <Avatar class="mr-2" size="large" image="/img/logo.png" />
                 </i>
                 <div>
                   <h3 class="text-color m-0">
@@ -479,7 +480,29 @@ onMounted(async () => {
                     />
                   </span>
                 </div>
-                <div class="flex gap-2 sm:w-max w-full justify-content-between"></div>
+                <div class="flex gap-2 sm:w-max w-full justify-content-between">
+                  <Button
+                    text
+                    plain
+                    rounded
+                    icon="pi pi-plus-circle"
+                    iconClass="text-2xl"
+                    class="p-button-lg hover:text-primary h-3rem w-3rem"
+                    v-tooltip.bottom="'Upload dialog'"
+                    @click="openUpload = !openUpload"
+                  />
+
+                  <Button
+                    text
+                    plain
+                    rounded
+                    icon="pi pi-sync"
+                    iconClass="text-2xl"
+                    class="p-button-lg hover:text-primary h-3rem w-3rem"
+                    v-tooltip.bottom="'Update records'"
+                    @click="update()"
+                  />
+                </div>
               </div>
             </div>
 
@@ -488,6 +511,7 @@ onMounted(async () => {
               customUpload
               :auto="false"
               name="files[]"
+              v-show="openUpload"
               @select="onSelectedFiles"
               @uploader="uploadFile"
             >
@@ -506,7 +530,7 @@ onMounted(async () => {
                       :label="'Upload'"
                       class="font-bold"
                       :disabled="!files || files.length === 0"
-                      @click="uploadEven(uploadCallback)"
+                      @click="uploadEvent(uploadCallback)"
                     />
 
                     <Button
@@ -524,17 +548,6 @@ onMounted(async () => {
                       class="font-bold"
                       :label="'Create folder'"
                       @click="uploadFolder()"
-                    />
-
-                    <Button
-                      text
-                      plain
-                      rounded
-                      icon="pi pi-sync"
-                      iconClass="text-2xl"
-                      class="p-button-lg mx-2 hover:text-primary h-3rem w-3rem"
-                      v-tooltip.bottom="'Update records'"
-                      @click="update()"
                     />
                   </div>
                 </div>
@@ -554,7 +567,7 @@ onMounted(async () => {
                   <div class="p-fileupload-file-details">
                     <div class="p-fileupload-file-name font-bold">{{ file.name }}</div>
                     <span class="p-fileupload-file-size">{{ byteToStr(file.size) }}</span>
-                    <Badge :value="'Pending'" severity="warning" />
+                    <Badge value="Pending" severity="warning" />
                   </div>
 
                   <div class="p-fileupload-file-actions">
@@ -578,7 +591,7 @@ onMounted(async () => {
 
           <template #loading>
             <i class="pi pi-spin pi-spinner text-4xl mr-4"></i>
-            <span> {{ 'Loading records data. Please wait' }}.</span>
+            <span>Loading records data. Please wait.</span>
           </template>
 
           <template #empty>
@@ -587,7 +600,7 @@ onMounted(async () => {
               class="flex flex-column justify-content-center p-datatable-loading-overlay p-component-overlay z-0"
             >
               <i class="pi pi-folder-open text-8xl text-color-secondary" />
-              <h5>{{ 'No files found in folder' }}</h5>
+              <h5>No files found in folder</h5>
             </div>
           </template>
 
@@ -684,7 +697,7 @@ onMounted(async () => {
           >
             <template #body="{ data }">
               <div class="flex justify-content-end flex-wrap">
-                <a
+                <!-- <a
                   download
                   target="_blank"
                   :href="getLinkToFile(data.name)"
@@ -693,7 +706,19 @@ onMounted(async () => {
                   v-if="data.type === 1"
                 >
                   <i class="pi pi-download text-xl"></i>
-                </a>
+                </a> -->
+
+                <Button
+                  text
+                  plain
+                  rounded
+                  icon="pi pi-download"
+                  iconClass="text-xl"
+                  class="p-button-lg mx-2 text-green-500 h-2rem w-2rem"
+                  v-tooltip.bottom="'Download file'"
+                  @click="download(data.name)"
+                  v-if="data.type === 1"
+                />
 
                 <Button
                   text

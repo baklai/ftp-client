@@ -32,7 +32,7 @@ export default defineConfig({
       includeAssets: ['favicon.ico'],
       manifest: {
         name: 'FTP Client',
-        short_name: 'HD',
+        short_name: 'FTP Client',
         description: 'FTP Client - Web application of the file transfer protocol',
         theme_color: '#ffffff',
         icons: [

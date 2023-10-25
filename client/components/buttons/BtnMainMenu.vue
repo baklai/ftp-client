@@ -24,7 +24,7 @@ const toggle = event => {
     <template #start>
       <div class="flex my-4 align-items-center">
         <div class="flex align-items-center justify-content-center mr-2">
-          <Avatar class="mr-2" size="xlarge" icon="pi pi-cloud-upload" />
+          <Avatar class="mr-2" size="large" image="/img/logo.png" />
         </div>
         <div class="flex align-items-center justify-content-center">
           <div>
@@ -35,6 +35,24 @@ const toggle = event => {
           </div>
         </div>
       </div>
+
+      <Panel header="Current connection" class="mb-4">
+        <p><span class="text-primary font-bold">FTP Host</span>: {{ $app.connection.host }}</p>
+        <p><span class="text-primary font-bold">FTP Port</span>: {{ $app.connection.port }}</p>
+        <p><span class="text-primary font-bold">FTP User</span>: {{ $app.connection.user }}</p>
+      </Panel>
+
+      <Button
+        text
+        plain
+        raised
+        outlined
+        size="large"
+        class="w-full"
+        label="Disconnect"
+        icon="pi pi-sign-out"
+        @click="$app.signout()"
+      />
     </template>
 
     <template #item="{ label, item, props }">

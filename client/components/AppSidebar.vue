@@ -3,7 +3,7 @@
 <template>
   <div class="flex justify-content-start py-2">
     <div class="flex align-items-center justify-content-center mr-2">
-      <Avatar class="mr-2" size="xlarge" icon="pi pi-cloud-upload" />
+      <Avatar class="mr-2" size="xlarge" image="/img/logo.png" />
     </div>
     <div class="flex align-items-center justify-content-center">
       <div>
@@ -18,12 +18,11 @@
   <Divider />
 
   <div class="sidebar-menu overflow-y-scroll w-full text-base my-4">
-    <span class="text-xl">
-      FTP, which stands for File Transfer Protocol, is a standard network protocol used to transfer
-      files from one host to another over a TCP-based network, typically the Internet. It was first
-      developed in the early 1970s and has since become one of the most widely used methods for
-      sharing files and managing data on remote servers.
-    </span>
+    <Panel header="Current connection" class="mb-4">
+      <p><span class="text-primary font-bold">FTP Host</span>: {{ $app.connection.host }}</p>
+      <p><span class="text-primary font-bold">FTP Port</span>: {{ $app.connection.port }}</p>
+      <p><span class="text-primary font-bold">FTP User</span>: {{ $app.connection.user }}</p>
+    </Panel>
   </div>
 
   <Button

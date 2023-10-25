@@ -108,12 +108,14 @@ import VirtualScroller from 'primevue/virtualscroller';
 
 import '@/assets/styles.scss';
 
+import 'primevue/resources/themes/vela-orange/theme.css';
+
 const app = createApp(App);
 
 app.use(router);
 app.use(createPinia());
 
-app.use(PrimeVue, { ripple: true });
+app.use(PrimeVue, { ripple: true, inputStyle: 'outlined' });
 app.use(ToastService);
 app.use(DialogService);
 app.use(ConfirmationService);

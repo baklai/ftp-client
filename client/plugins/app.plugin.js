@@ -9,6 +9,12 @@ export default {
     app.config.globalProperties.$app = {
       ...options,
 
+      connection: {
+        host: null,
+        port: null,
+        user: null
+      },
+
       get loggedIn() {
         return !!store?.token;
       },
@@ -17,6 +23,9 @@ export default {
         try {
           const { accessToken } = await $axios.post('/connect', { host, port, user, password });
           if (accessToken) {
+            this.connection.host = host;
+            this.connection.port = port;
+            this.connection.user = user;
             store.setAccessToken(accessToken);
             $router.push({ name: 'home' });
           }
@@ -27,6 +36,9 @@ export default {
       },
 
       async signout() {
+        this.connection.host = null;
+        this.connection.port = null;
+        this.connection.user = null;
         store.resetAccessToken();
         $router.push({ name: 'connect' });
         $toast.add({

@@ -3,7 +3,6 @@ import { ref, computed, watchEffect } from 'vue';
 
 import AppTopbar from '@/components/AppTopbar.vue';
 import AppSidebar from '@/components/AppSidebar.vue';
-import BtnConfig from '@/components/buttons/BtnConfig.vue';
 
 import { useConfig } from '@/stores/config';
 
@@ -13,14 +12,11 @@ const outsideClickListener = ref(null);
 
 const containerClass = computed(() => {
   return {
-    'layout-theme-light': $config.theme === 'light',
-    'layout-theme-dark': $config.theme === 'dark',
     'layout-overlay': $config.menuMode === 'overlay',
     'layout-static': $config.menuMode === 'static',
     'layout-static-inactive': $config.staticMenuDesktopInactive && $config.menuMode === 'static',
     'layout-overlay-active': $config.overlayMenuActive,
     'layout-mobile-active': $config.staticMenuMobileActive,
-    'p-input-filled': $config.inputStyle === 'filled',
     'p-ripple-disabled': !$config.ripple
   };
 });
@@ -70,7 +66,6 @@ watchEffect(() => {
     <div class="layout-sidebar surface-50">
       <AppSidebar />
     </div>
-
     <div class="layout-main-container">
       <AppTopbar />
       <div class="layout-main overflow-auto">
@@ -79,7 +74,6 @@ watchEffect(() => {
         </div>
       </div>
     </div>
-    <BtnConfig />
   </div>
 
   <ConfirmDialog :style="{ minWidth: '350px' }">
@@ -99,5 +93,13 @@ watchEffect(() => {
   -ms-user-select: 'none';
   -o-user-select: 'none';
   user-select: 'none';
+}
+
+::v-deep(.p-button:focus) {
+  box-shadow: none !important;
+}
+
+::v-deep(.p-link:focus) {
+  box-shadow: none !important;
 }
 </style>

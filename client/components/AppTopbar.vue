@@ -1,7 +1,6 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, defineAsyncComponent } from 'vue';
 
-import BtnToggleTheme from '@/components/buttons/BtnToggleTheme.vue';
 import BtnFullScreen from '@/components/buttons/BtnFullScreen.vue';
 import BtnMainMenu from '@/components/buttons/BtnMainMenu.vue';
 
@@ -73,7 +72,6 @@ onMounted(() => {
       <i class="pi pi-ellipsis-v"></i>
     </button>
     <div class="layout-topbar-menu" :class="topbarMenuClasses">
-      <BtnToggleTheme iconClass="text-2xl" class="w-3rem h-3rem hover:text-color mx-2" />
       <BtnFullScreen iconClass="text-2xl" class="w-3rem h-3rem text-4xl hover:text-color mx-2" />
       <BtnMainMenu />
     </div>

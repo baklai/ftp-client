@@ -53,20 +53,17 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-column align-items-center justify-content-center">
-    <div class="w-min justify-content-center align-items-center w-30rem">
-      <div class="flex flex-column surface-card border-round-lg p-5">
-        <div class="flex justify-content-center">
-          <div class="justify-content-start">
-            <p class="uppercase font-bold text-7xl m-0 text-color" translate="no" lang="en">
-              FTP CLIENT
-            </p>
-          </div>
+  <div class="flex h-screen">
+    <div class="w-full lg:w-4 h-full px-6 py-6 flex flex-column justify-content-between">
+      <img src="/img/logo.png" class="mt-4 mx-auto w-8rem h-8rem" alt="logo" />
+      <div class="flex flex-column align-items-center gap-4">
+        <div class="mb-3 text-center">
+          <h2 class="text-6xl font-bold">
+            <span class="text-2xl font-bold text-color-secondary">connect to</span> <br />
+            FTP Server
+          </h2>
         </div>
-        <div class="text-center mb-4">
-          <p class="text-600 font-medium">Sign In to the application to continue</p>
-        </div>
-        <form @submit.prevent="onSignin" class="p-fluid w-full">
+        <form @submit.prevent="onSignin" class="p-fluid w-25rem">
           <div class="formgrid grid">
             <div class="field col-12 xl:col-8">
               <label for="host" class="text-900 text-xl font-medium">
@@ -148,30 +145,58 @@ onMounted(() => {
             </small>
           </div>
 
-          <Divider />
-
           <div class="field">
             <Button
-              text
-              plain
-              outlined
               type="submit"
               icon="pi pi-sign-in"
-              class="block w-full p-3 text-xl text-center hover:text-color"
-              label="Connect to FTP Server"
+              class="block w-full text-center font-bold hover:text-color"
+              label="CONTINUE"
               aria-describedby="submit-help"
             />
           </div>
         </form>
       </div>
-      <p class="text-center text-500 my-2">
-        {{ $app?.copyright }}
+      <p class="text-center text-color-secondary font-semibold">
+        A problem?
+        <a
+          target="_blank"
+          href="https://github.com/baklai/ftp-client/issues"
+          class="text-primary hover:underline cursor-pointer font-medium"
+        >
+          Click here
+        </a>
+        and let us help you.
       </p>
+    </div>
+    <div
+      class="bg-layout w-8 hidden lg:flex flex-column justify-content-between align-items-center px-6 py-6 bg-cover bg-norepeat"
+    >
+      <div class="mt-auto mb-auto">
+        <span class="block text-white text-7xl font-semibold">
+          <img src="/img/logo.png" class="w-3rem h-3rem" alt="logo" /> FTP Client
+        </span>
+        <span class="block text-color-secondary text-3xl max-w-30rem mt-4">
+          File Transfer Protocol, is a standard network protocol used to transfer files from one
+          host to another over a TCP-based network, typically the Internet.
+        </span>
+      </div>
+      <div class="flex align-items-center gap-5">
+        <p class="text-white font-semibold">
+          {{ $app?.copyright }}
+        </p>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.bg-layout {
+  background-image: url('/img/bg-layout.svg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
 ::v-deep(.p-input-icon-right > svg) {
   right: 0.8rem;
   cursor: pointer;
